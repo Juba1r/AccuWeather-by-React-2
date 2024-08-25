@@ -1,0 +1,165 @@
+.hourly-weather-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* 2/3 for the left column, 1/3 for the right */
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0px;
+  width: 65%;
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Styles for the Top Stories card */
+.top-stories {
+  background-color: #f7f9fc;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.top-stories h2 {
+  font-size: 1.2rem;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.top-stories ul {
+  list-style: none;
+  padding: 0;
+}
+
+.top-stories li {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.top-stories span {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Existing HourlyWeatherCard styles... */
+.hourly-weather-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: #333;
+  max-width: 100%; 
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hourly-weather-container {
+    grid-template-columns: 1fr; 
+  }
+
+  .left-column,
+  .right-column {
+    gap: 15px;
+  }
+}
+
+/* .hourly-weather-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: #333;
+  max-width: 400px;
+} */
+
+.hourly-weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.hour-and-icon {
+  display: flex;
+  align-items: center;
+}
+
+.hour {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+.weather-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.temperature {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.real-feel {
+  font-size: 1rem;
+}
+
+.real-feel span {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.humidity-and-dropdown {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.humidity-and-dropdown .humidity {
+  margin-right: 5px;
+}
+
+.humidity-and-dropdown .dropdown-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.weather-condition {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.details-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details-section div {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.details-section div:last-child {
+  font-weight: bold;
+  color: #333;
+}
+
+.air-quality-value {
+  color: #28a745; 
+}

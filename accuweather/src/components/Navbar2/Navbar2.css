@@ -1,0 +1,78 @@
+.secondary-navbar-container {
+  background-color: #e4eaf2;
+  padding: 10px 0;
+  border-bottom: 2px solid #c0b7b7;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.secondary-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 135px;
+  gap: 10px;
+}
+
+.secondary-navbar a {
+  color: #333;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 1rem;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.secondary-navbar a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.secondary-navbar a:hover::after {
+  background-color: rgb(221, 121, 7);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-location-container {
+    margin-right: 0;
+    margin-top: 10px;
+  }
+
+  .secondary-navbar {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-title {
+    font-size: 1.2rem;
+  }
+
+  .h3-title {
+    font-size: 1rem;
+  }
+
+  .search-input {
+    width: 150px;
+  }
+
+  .weather-icon {
+    font-size: 1rem;
+  }
+}
