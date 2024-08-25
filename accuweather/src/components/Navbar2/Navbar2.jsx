@@ -5,9 +5,9 @@ function SecondaryNavbar() {
   return (
     <div className="secondary-navbar-container">
       <div className="secondary-navbar">
-        <a href="#">Today</a>
+        <Link to="/today">Today</Link>
         <Link to="/hourly">Hourly</Link>
-        <a href="#">Daily</a>
+        <Link to="/daily">Daily</Link>
         <a href="#">Radar</a>
         <a href="#">Minutecast</a>
         <a href="#">Monthly</a>
