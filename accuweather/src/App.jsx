@@ -1,13 +1,19 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import HomePage from "./components/Homepage/homepage";
 import HourlyWeather from "./components/Hourly/HourlyWeather";
 
 function App() {
   return (
     <div className="main-container">
-      <HomePage />
-      <HourlyWeather />
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/hourly" element={<HourlyWeather />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
