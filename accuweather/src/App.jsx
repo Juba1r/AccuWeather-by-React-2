@@ -10,7 +10,7 @@ function App() {
     <div className="main-container">
       <Router>
         <Routes>
-          <Route path="/today" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/hourly" element={<HourlyWeather />} />
           <Route path="/daily" element={<DailyWeather />} />
         </Routes>

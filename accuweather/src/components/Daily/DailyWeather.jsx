@@ -1,87 +1,103 @@
+import { useEffect, useState } from "react";
 import "./DailyWeather.css";
 import Layout from "../Layout";
 
+const API_URL =
+  "http://dataservice.accuweather.com/forecasts/v1/daily/5day/28143?apikey=PvsDVBVgzpRPDIRRE6N36hkpqVatzO7V";
+
 const DailyWeatherCard = () => {
-  const hourlyWeatherData = Array.from({ length: 12 }, (_, index) => index + 1);
+  const [dailyWeatherData, setDailyWeatherData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        setDailyWeatherData(data.DailyForecasts);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchWeatherData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <Layout>
-      <div className="hourly-weather-container">
+      <div className="daily-weather-container">
         <div className="left-column">
-          {hourlyWeatherData.map((hour, index) => (
-            <div key={index} className="hourly-weather-card">
-              <div className="hourly-weather-header">
-                <div className="hour-and-icon">
-                  <div className="hour">{hour}:00</div>
-                  <img
-                    src="/path/to/shower-icon.png"
-                    alt="Showers"
-                    className="weather-icon"
-                  />
-                  <div className="temperature">31°</div>
+          {dailyWeatherData.map((day, index) => (
+            <div key={index} className="daily-weather-card">
+              <div className="daily-weather-header">
+                <div className="daily-weather-date">
+                  <span>
+                    {new Date(day.Date).toLocaleDateString("en-US", {
+                      weekday: "short",
+                    })}
+                  </span>
+                  <span>{new Date(day.Date).toLocaleDateString("en-GB")}</span>
                 </div>
-                <div className="real-feel">
-                  RealFeel® <span>36°</span>
-                </div>
-                <div className="humidity-and-dropdown">
-                  <div className="humidity">52%</div>
+                <div className="daily-weather-icon">
                   <img
-                    src="/path/to/dropdown-icon.png"
-                    alt="Dropdown"
-                    className="dropdown-icon"
+                    src={`https://developer.accuweather.com/sites/default/files/${
+                      day.Day.Icon < 10 ? "0" : ""
+                    }${day.Day.Icon}-s.png`}
+                    alt={day.Day.IconPhrase}
                   />
+                </div>
+                <div className="daily-weather-temperature">
+                  {/* <span>{Math.round(day.Temperature.Maximum.Value)}°</span> */}
+                  {/* <span>/{Math.round(day.Temperature.Minimum.Value)}°</span> */}
+                </div>
+                <div className="daily-weather-humidity">
+                  <span>{day.Day.RainProbability}%</span>
                 </div>
               </div>
-
-              <div className="weather-condition">Showers</div>
-              <div className="weather-details">
-                <div className="details-section">
-                  <div>RealFeel Shade™</div>
-                  <div>34°</div>
+              <div className="daily-weather-description">
+                {day.Day.LongPhrase}
+              </div>
+              <div className="daily-weather-details">
+                <div className="daily-weather-detail-item">
+                  <span>
+                    RealFeel<sup>®</sup>
+                  </span>
+                  <span>
+                    {/* {Math.round(day.RealFeelTemperature.Maximum.Value)}° */}
+                  </span>
                 </div>
-                <div className="details-section">
-                  <div>Wind</div>
-                  <div>SE 11 km/h</div>
+                <div className="daily-weather-detail-item">
+                  <span>Max UV Index</span>
+                  {/* <span>{day.AirAndPollen[5].Category}</span> */}
                 </div>
-                <div className="details-section">
-                  <div>Gusts</div>
-                  <div>22 km/h</div>
+                <div className="daily-weather-detail-item">
+                  <span>
+                    RealFeel Shade<sup>™</sup>
+                  </span>
+                  <span>
+                    {/* {Math.round(day.RealFeelTemperatureShade.Maximum.Value)}° */}
+                  </span>
                 </div>
-                <div className="details-section">
-                  <div>Humidity</div>
-                  <div>72%</div>
-                </div>
-                <div className="details-section">
-                  <div>Indoor Humidity</div>
-                  <div>72% (Extremely Humid)</div>
-                </div>
-                <div className="details-section">
-                  <div>Dew Point</div>
-                  <div>25°C</div>
-                </div>
-                <div className="details-section">
-                  <div>Air Quality</div>
-                  <div className="air-quality-value">Fair</div>
-                </div>
-                <div className="details-section">
-                  <div>Max UV Index</div>
-                  <div>3 Moderate</div>
-                </div>
-                <div className="details-section">
-                  <div>Cloud Cover</div>
-                  <div>90%</div>
-                </div>
-                <div className="details-section">
-                  <div>Rain</div>
-                  <div>0.8 mm</div>
-                </div>
-                <div className="details-section">
-                  <div>Visibility</div>
-                  <div>10 km</div>
-                </div>
-                <div className="details-section">
-                  <div>Cloud Ceiling</div>
-                  <div>500 m</div>
+                <div className="daily-weather-detail-item">
+                  <span>Wind</span>
+                  <span>
+                    {/* {day.Day.Wind.Speed.Value} {day.Day.Wind.Speed.Unit} */}
+                  </span>
                 </div>
               </div>
             </div>

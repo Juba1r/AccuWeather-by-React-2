@@ -1,8 +1,42 @@
+import { useEffect, useState } from "react";
 import "./HourlyWeather.css";
 import Layout from "../Layout";
 
+const API_URL =
+  "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/28143?apikey=PvsDVBVgzpRPDIRRE6N36hkpqVatzO7V";
+
 const HourlyWeatherCard = () => {
-  const hourlyWeatherData = Array.from({ length: 12 }, (_, index) => index + 1);
+  const [hourlyWeatherData, setHourlyWeatherData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        setHourlyWeatherData(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchWeatherData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <Layout>
@@ -12,76 +46,39 @@ const HourlyWeatherCard = () => {
             <div key={index} className="hourly-weather-card">
               <div className="hourly-weather-header">
                 <div className="hour-and-icon">
-                  <div className="hour">{hour}:00</div>
+                  <div className="hour">
+                    {new Date(hour.DateTime).getHours()}:00
+                  </div>
                   <img
-                    src="/path/to/shower-icon.png"
-                    alt="Showers"
+                    src={`https://developer.accuweather.com/sites/default/files/${
+                      hour.WeatherIcon < 10 ? "0" : ""
+                    }${hour.WeatherIcon}-s.png`}
+                    alt={hour.IconPhrase}
                     className="weather-icon"
                   />
-                  <div className="temperature">31°</div>
+                  <div className="temperature">
+                    {Math.round(hour.Temperature.Value)}°{hour.Temperature.Unit}
+                  </div>
                 </div>
-                <div className="real-feel">
-                  RealFeel® <span>36°</span>
-                </div>
+                <div className="real-feel">RealFeel® </div>
                 <div className="humidity-and-dropdown">
-                  <div className="humidity">52%</div>
-                  <img
-                    src="/path/to/dropdown-icon.png"
-                    alt="Dropdown"
-                    className="dropdown-icon"
-                  />
+                  <div className="humidity">RelativeHumidity %</div>
                 </div>
               </div>
 
-              <div className="weather-condition">Showers</div>
+              <div className="weather-condition">{hour.IconPhrase}</div>
               <div className="weather-details">
                 <div className="details-section">
-                  <div>RealFeel Shade™</div>
-                  <div>34°</div>
-                </div>
-                <div className="details-section">
                   <div>Wind</div>
-                  <div>SE 11 km/h</div>
                 </div>
                 <div className="details-section">
                   <div>Gusts</div>
-                  <div>22 km/h</div>
                 </div>
                 <div className="details-section">
                   <div>Humidity</div>
-                  <div>72%</div>
                 </div>
                 <div className="details-section">
-                  <div>Indoor Humidity</div>
-                  <div>72% (Extremely Humid)</div>
-                </div>
-                <div className="details-section">
-                  <div>Dew Point</div>
-                  <div>25°C</div>
-                </div>
-                <div className="details-section">
-                  <div>Air Quality</div>
-                  <div className="air-quality-value">Fair</div>
-                </div>
-                <div className="details-section">
-                  <div>Max UV Index</div>
-                  <div>3 Moderate</div>
-                </div>
-                <div className="details-section">
-                  <div>Cloud Cover</div>
-                  <div>90%</div>
-                </div>
-                <div className="details-section">
-                  <div>Rain</div>
-                  <div>0.8 mm</div>
-                </div>
-                <div className="details-section">
-                  <div>Visibility</div>
-                  <div>10 km</div>
-                </div>
-                <div className="details-section">
-                  <div>Cloud Ceiling</div>
-                  <div>500 m</div>
+                  <div>UV Index</div>
                 </div>
               </div>
             </div>
