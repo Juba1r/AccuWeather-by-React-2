@@ -58,6 +58,7 @@
   border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
   margin-bottom: 15px;
+  font-weight: 600;
 }
 
 .weather-details {
@@ -70,6 +71,10 @@
   font-size: 3rem;
   font-weight: bold;
   display: block;
+}
+.temperature p {
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 .weather-icon {
@@ -188,19 +193,19 @@
 /* Main Card Styling */
 .hourly-weather-card {
   padding: 20px;
-  background-color: #f7f9fc;
+  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
-.hourly-weather-card h2 {
+/* .hourly-weather-card h2 {
   font-size: 1rem;
   color: #333;
   margin-bottom: 15px;
   padding-left: 10px;
   font-weight: bold;
-}
+} */
 
 /* Slider Container */
 .slider-container {
@@ -258,9 +263,8 @@
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  padding: 10px;
+  padding: 70px 10px;
   cursor: pointer;
-  border-radius: 50%;
   transition: background-color 0.3s;
 }
 

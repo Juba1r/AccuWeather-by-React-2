@@ -132,9 +132,9 @@ function WeatherNavbar() {
         <div className="dropdown-container">
           <FaBars className="dropdown-icon" />
           <div className="dropdown-menu">
-            <a href="#">Action 1</a>
+            {/* <a href="#">Action 1</a>
             <a href="#">Action 2</a>
-            <a href="#">Action 3</a>
+            <a href="#">Action 3</a> */}
           </div>
         </div>
       </div>

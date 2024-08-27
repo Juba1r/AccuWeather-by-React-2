@@ -73,8 +73,7 @@ function HomePage() {
     { time: "19", temp: 27, icon: "moon-cloud-icon.png", humidity: "20%" },
     { time: "20", temp: 27, icon: "moon-cloud-icon.png", humidity: "20%" },
     { time: "21", temp: 27, icon: "moon-cloud-icon.png", humidity: "20%" },
-    { time: "22", temp: 27, icon: "cloud-icon.png", humidity: "20%" },
-    { time: "23", temp: 26, icon: "cloud-icon.png", humidity: "20%" },
+    
   ];
 
   return (
@@ -234,7 +233,7 @@ function HomePage() {
                 <span>25/08</span> <span>30°/25°</span> <span>Showers</span>{" "}
                 <span>84%</span>
               </li>
-              {/* Add more list items here for other days */}
+              
             </ul>
           </div>
         </div>
@@ -247,6 +246,36 @@ function HomePage() {
                 <p>
                   2 killed, 100 evacuated as flash flooding hit parts of
                   Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
                 </p>
               </li>
               <li>

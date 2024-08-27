@@ -61,10 +61,7 @@ const DailyWeatherCard = () => {
                     alt={day.Day.IconPhrase}
                   />
                 </div>
-                <div className="daily-weather-temperature">
-                  {/* <span>{Math.round(day.Temperature.Maximum.Value)}°</span> */}
-                  {/* <span>/{Math.round(day.Temperature.Minimum.Value)}°</span> */}
-                </div>
+
                 <div className="daily-weather-humidity">
                   <span>{day.Day.RainProbability}%</span>
                 </div>
@@ -77,27 +74,17 @@ const DailyWeatherCard = () => {
                   <span>
                     RealFeel<sup>®</sup>
                   </span>
-                  <span>
-                    {/* {Math.round(day.RealFeelTemperature.Maximum.Value)}° */}
-                  </span>
                 </div>
                 <div className="daily-weather-detail-item">
                   <span>Max UV Index</span>
-                  {/* <span>{day.AirAndPollen[5].Category}</span> */}
                 </div>
                 <div className="daily-weather-detail-item">
                   <span>
                     RealFeel Shade<sup>™</sup>
                   </span>
-                  <span>
-                    {/* {Math.round(day.RealFeelTemperatureShade.Maximum.Value)}° */}
-                  </span>
                 </div>
                 <div className="daily-weather-detail-item">
                   <span>Wind</span>
-                  <span>
-                    {/* {day.Day.Wind.Speed.Value} {day.Day.Wind.Speed.Unit} */}
-                  </span>
                 </div>
               </div>
             </div>
@@ -119,7 +106,60 @@ const DailyWeatherCard = () => {
                   heat
                 </p>
               </li>
-              {/* Add more stories as needed */}
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
             </ul>
           </div>
         </div>

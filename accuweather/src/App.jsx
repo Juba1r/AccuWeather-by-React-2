@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DailyWeather from "./components/Daily/DailyWeather";
-import HomePage from "./components/Homepage/homepage";
+import HomePage from "./components/Homepage/Homepage";
 import HourlyWeather from "./components/Hourly/HourlyWeather";
 
 function App() {

@@ -100,7 +100,103 @@ const HourlyWeatherCard = () => {
                   heat
                 </p>
               </li>
-              {/* Add more stories as needed */}
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              <li>
+                <p>
+                  2 killed, 100 evacuated as flash flooding hit parts of
+                  Connecticut
+                </p>
+              </li>
+              <li>
+                <p>
+                  UPS driver veers off road, crashes into tree due to extreme
+                  heat
+                </p>
+              </li>
+              
             </ul>
           </div>
         </div>
