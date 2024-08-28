@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaSearch, FaBars, FaSun, FaChevronDown } from "react-icons/fa";
 import "./Navbar.css";
+import axios from "axios";
 
 function WeatherNavbar() {
   const [isLocationDropdownOpen, setLocationDropdownOpen] = useState(false);
@@ -24,8 +25,8 @@ function WeatherNavbar() {
       const url = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apiKey}&q=${query}`;
 
       try {
-        const response = await fetch(url);
-        const data = await response.json();
+        const response = await axios.get(url);
+        const data = response.data;
         setSearchResults(data);
       } catch (error) {
         console.error("Error fetching location data:", error);
@@ -45,8 +46,8 @@ function WeatherNavbar() {
     const currentConditionsUrl = `http://dataservice.accuweather.com/currentconditions/v1/${city.Key}?apikey=${apiKey}`;
 
     try {
-      const response = await fetch(currentConditionsUrl);
-      const data = await response.json();
+      const response = await axios.get(currentConditionsUrl);
+      const data = response.data;
 
       const temp = data[0].Temperature.Metric.Value;
       setTemperature(`${temp}°C`);
@@ -61,7 +62,6 @@ function WeatherNavbar() {
       console.error("Error fetching current conditions:", error);
     }
   };
-
   return (
     <div className="navbar-container">
       <div className="navbar">

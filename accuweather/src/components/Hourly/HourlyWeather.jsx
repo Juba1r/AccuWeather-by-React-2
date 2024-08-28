@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import "./HourlyWeather.css";
-import Layout from "../Layout";
+
 
 const API_URL =
   "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/28143?apikey=PvsDVBVgzpRPDIRRE6N36hkpqVatzO7V";
@@ -13,13 +14,8 @@ const HourlyWeatherCard = () => {
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const response = await fetch(API_URL);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log(data);
-        setHourlyWeatherData(data);
+        const response = await axios.get(API_URL);
+        setHourlyWeatherData(response.data);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -39,7 +35,7 @@ const HourlyWeatherCard = () => {
   }
 
   return (
-    <Layout>
+    
       <div className="hourly-weather-container">
         <div className="left-column">
           {hourlyWeatherData.map((hour, index) => (
@@ -196,12 +192,11 @@ const HourlyWeatherCard = () => {
                   heat
                 </p>
               </li>
-              
             </ul>
           </div>
         </div>
       </div>
-    </Layout>
+    
   );
 };
 

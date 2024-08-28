@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import Layout from "../Layout";
+import axios from "axios";
+
 import "./HomePage.css";
 import {
   MapContainer,
@@ -38,9 +39,8 @@ function HomePage() {
       const url = `http://dataservice.accuweather.com/forecasts/v1/daily/1day/28143?apikey=PvsDVBVgzpRPDIRRE6N36hkpqVatzO7V`;
 
       try {
-        const response = await fetch(url);
-        const data = await response.json();
-        setForecastData(data.DailyForecasts[0]);
+        const response = await axios.get(url);
+        setForecastData(response.data.DailyForecasts[0]);
       } catch (error) {
         console.error("Error fetching forecast data:", error);
       }
@@ -50,9 +50,8 @@ function HomePage() {
       const url = `http://dataservice.accuweather.com/currentconditions/v1/28143?apikey=PvsDVBVgzpRPDIRRE6N36hkpqVatzO7V&details=true`;
 
       try {
-        const response = await fetch(url);
-        const data = await response.json();
-        setCurrentWeather(data[0]);
+        const response = await axios.get(url);
+        setCurrentWeather(response.data[0]);
       } catch (error) {
         console.error("Error fetching current weather data:", error);
       }
@@ -73,11 +72,10 @@ function HomePage() {
     { time: "19", temp: 27, icon: "moon-cloud-icon.png", humidity: "20%" },
     { time: "20", temp: 27, icon: "moon-cloud-icon.png", humidity: "20%" },
     { time: "21", temp: 27, icon: "moon-cloud-icon.png", humidity: "20%" },
-    
   ];
 
   return (
-    <Layout>
+    // <Layout>
       <div className="homepage-container">
         <div className="left-column">
           <div className="card today-weather">
@@ -233,7 +231,6 @@ function HomePage() {
                 <span>25/08</span> <span>30°/25°</span> <span>Showers</span>{" "}
                 <span>84%</span>
               </li>
-              
             </ul>
           </div>
         </div>
@@ -318,7 +315,7 @@ function HomePage() {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

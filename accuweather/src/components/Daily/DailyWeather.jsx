@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import "./DailyWeather.css";
-import Layout from "../Layout";
+
 
 const API_URL =
   "http://dataservice.accuweather.com/forecasts/v1/daily/5day/28143?apikey=PvsDVBVgzpRPDIRRE6N36hkpqVatzO7V";
@@ -13,13 +14,8 @@ const DailyWeatherCard = () => {
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const response = await fetch(API_URL);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log(data);
-        setDailyWeatherData(data.DailyForecasts);
+        const response = await axios.get(API_URL);
+        setDailyWeatherData(response.data.DailyForecasts);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -37,9 +33,8 @@ const DailyWeatherCard = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
   return (
-    <Layout>
+    
       <div className="daily-weather-container">
         <div className="left-column">
           {dailyWeatherData.map((day, index) => (
@@ -164,7 +159,7 @@ const DailyWeatherCard = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    
   );
 };
 
