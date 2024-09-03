@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHourlyWeather } from "../../redux/actions/Action";
+import axios from "axios";
+import {
+  fetchHourlyWeatherRequest,
+  fetchHourlyWeatherSuccess,
+  fetchHourlyWeatherFailure,
+} from "../../redux/actions/Action";
 import "./HourlyWeather.css";
 
 const HourlyWeatherCard = () => {
@@ -11,7 +16,21 @@ const HourlyWeatherCard = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchHourlyWeather());
+    const fetchHourlyWeather = async () => {
+      dispatch(fetchHourlyWeatherRequest());
+      try {
+        const response = await axios.get(
+          `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/28143?apikey=${
+            import.meta.env.VITE_ACCUWEATHER_API_KEY
+          }`
+        );
+        dispatch(fetchHourlyWeatherSuccess(response.data));
+      } catch (error) {
+        dispatch(fetchHourlyWeatherFailure(error.message));
+      }
+    };
+
+    fetchHourlyWeather();
   }, [dispatch]);
 
   if (loading) {
