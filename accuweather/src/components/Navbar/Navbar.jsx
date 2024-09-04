@@ -11,7 +11,7 @@ function WeatherNavbar() {
   const [temperature, setTemperature] = useState("30°C");
   const [weatherIcon, setWeatherIcon] = useState(null);
 
-  const apiKey = "PvsDVBVgzpRPDIRRE6N36hkpqVatzO7V";
+  const apiKey = import.meta.env.VITE_ACCUWEATHER_API_KEY;
 
   const toggleLocationDropdown = () => {
     setLocationDropdownOpen(!isLocationDropdownOpen);

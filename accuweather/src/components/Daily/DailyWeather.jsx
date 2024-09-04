@@ -1,37 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import {
-  fetchDailyWeatherRequest,
-  fetchDailyWeatherSuccess,
-  fetchDailyWeatherFailure,
-} from "../../redux/actions/Action";
+import { fetchDailyWeather } from "../../redux/slices/dailyWeatherSlice";
 import "./DailyWeather.css";
-
-const API_URL = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/28143?apikey=${
-  import.meta.env.VITE_ACCUWEATHER_API_KEY
-}`;
 
 const DailyWeatherCard = () => {
   const dispatch = useDispatch();
-  const dailyWeatherData = useSelector(
-    (state) => state.dailyWeather.dailyWeatherData
+  const { dailyWeatherData, loading, error } = useSelector(
+    (state) => state.dailyWeather
   );
-  const loading = useSelector((state) => state.dailyWeather.loading);
-  const error = useSelector((state) => state.dailyWeather.error);
 
   useEffect(() => {
-    const fetchWeatherData = async () => {
-      dispatch(fetchDailyWeatherRequest());
-      try {
-        const response = await axios.get(API_URL);
-        dispatch(fetchDailyWeatherSuccess(response.data.DailyForecasts));
-      } catch (err) {
-        dispatch(fetchDailyWeatherFailure(err.message));
-      }
-    };
-
-    fetchWeatherData();
+    dispatch(fetchDailyWeather());
   }, [dispatch]);
 
   if (loading) {

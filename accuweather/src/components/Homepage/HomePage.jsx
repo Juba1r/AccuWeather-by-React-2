@@ -1,13 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import {
-  fetchHourlyWeatherRequest,
-  fetchHourlyWeatherSuccess,
-  fetchHourlyWeatherFailure,
-  fetchForecastSuccess,
-  fetchCurrentWeatherSuccess,
-} from "../../redux/actions/Action";
+  fetchHourlyWeather,
+  fetchForecastData,
+  fetchCurrentWeather,
+} from "../../redux/slices/weatherSlice";
 import "./HomePage.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -15,55 +12,13 @@ import "leaflet/dist/leaflet.css";
 function HomePage() {
   const dispatch = useDispatch();
 
-  const hourlyWeatherData = useSelector(
-    (state) => state.weather.hourlyWeatherData
-  );
-  const forecastData = useSelector((state) => state.weather.forecastData);
-  const currentWeather = useSelector((state) => state.weather.currentWeather);
-  const loading = useSelector((state) => state.weather.loading);
+  const { hourlyWeatherData, forecastData, currentWeather, loading, error } =
+    useSelector((state) => state.weather);
 
   useEffect(() => {
-    const fetchHourlyWeather = async () => {
-      dispatch(fetchHourlyWeatherRequest());
-      try {
-        const response = await axios.get(
-          `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/28143?apikey=${
-            import.meta.env.VITE_ACCUWEATHER_API_KEY
-          }`
-        );
-        dispatch(fetchHourlyWeatherSuccess(response.data));
-      } catch (error) {
-        dispatch(fetchHourlyWeatherFailure(error.message));
-      }
-    };
-
-    const fetchForecastData = async () => {
-      const url = `http://dataservice.accuweather.com/forecasts/v1/daily/1day/28143?apikey=${
-        import.meta.env.VITE_ACCUWEATHER_API_KEY
-      }`;
-      try {
-        const response = await axios.get(url);
-        dispatch(fetchForecastSuccess(response.data.DailyForecasts[0]));
-      } catch (error) {
-        console.error("Error fetching forecast data:", error);
-      }
-    };
-
-    const fetchCurrentWeather = async () => {
-      const url = `http://dataservice.accuweather.com/currentconditions/v1/28143?apikey=${
-        import.meta.env.VITE_ACCUWEATHER_API_KEY
-      }`;
-      try {
-        const response = await axios.get(url);
-        dispatch(fetchCurrentWeatherSuccess(response.data[0]));
-      } catch (error) {
-        console.error("Error fetching current weather data:", error);
-      }
-    };
-
-    fetchHourlyWeather();
-    fetchForecastData();
-    fetchCurrentWeather();
+    dispatch(fetchHourlyWeather());
+    dispatch(fetchForecastData());
+    dispatch(fetchCurrentWeather());
   }, [dispatch]);
 
   const today = new Date();
@@ -91,7 +46,7 @@ function HomePage() {
               </p>
             </>
           ) : (
-            <p>Loading...</p>
+            <p>{error}</p>
           )}
         </div>
 
@@ -228,12 +183,6 @@ function HomePage() {
             <li>
               <p>
                 UPS driver veers off road, crashes into tree due to extreme heat
-              </p>
-            </li>
-            <li>
-              <p>
-                2 killed, 100 evacuated as flash flooding hit parts of
-                Connecticut
               </p>
             </li>
           </ul>

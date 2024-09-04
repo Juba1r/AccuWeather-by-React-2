@@ -1,7 +1,14 @@
-import { createStore } from "redux";
-import rootReducer from "./reducer/rootReducer";
-import { composeWithDevTools } from "@redux-devtools/extension";
+import { configureStore } from "@reduxjs/toolkit";
+import hourlyWeatherReducer from "./slices/hourlyWeatherSlice";
+import weatherReducer from "./slices/weatherSlice";
+import dailyWeatherReducer from "./slices/dailyWeatherSlice";
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = configureStore({
+  reducer: {
+    hourlyWeather: hourlyWeatherReducer,
+    weather: weatherReducer,
+    dailyWeather: dailyWeatherReducer,
+  },
+});
 
 export default store;
