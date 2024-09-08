@@ -1,14 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
-import hourlyWeatherReducer from "./slices/hourlyWeatherSlice";
+import { hourlyWeatherApi } from "./slices/hourlyWeatherSlice";
+import { dailyWeatherApi } from "./slices/dailyWeatherSlice";
 import weatherReducer from "./slices/weatherSlice";
-import dailyWeatherReducer from "./slices/dailyWeatherSlice";
 
 const store = configureStore({
   reducer: {
-    hourlyWeather: hourlyWeatherReducer,
     weather: weatherReducer,
-    dailyWeather: dailyWeatherReducer,
+    [hourlyWeatherApi.reducerPath]: hourlyWeatherApi.reducer,
+    [dailyWeatherApi.reducerPath]: dailyWeatherApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(
+      hourlyWeatherApi.middleware,
+      dailyWeatherApi.middleware
+    ),
 });
 
 export default store;

@@ -1,25 +1,22 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchHourlyWeather,
-  fetchForecastData,
-  fetchCurrentWeather,
-} from "../../redux/slices/weatherSlice";
 import "./HomePage.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import {
+  useGetCurrentWeatherQuery,
+  useGetHourlyWeatherQuery,
+  useGetForecastDataQuery,
+} from "../../redux/slices/weatherSlice";
 
 function HomePage() {
-  const dispatch = useDispatch();
+  const locationKey = "28143"; // Example location key
 
-  const { hourlyWeatherData, forecastData, currentWeather, loading, error } =
-    useSelector((state) => state.weather);
-
-  useEffect(() => {
-    dispatch(fetchHourlyWeather());
-    dispatch(fetchForecastData());
-    dispatch(fetchCurrentWeather());
-  }, [dispatch]);
+  // Fetch data using RTK Query hooks
+  const { data: currentWeather, isLoading: currentWeatherLoading } =
+    useGetCurrentWeatherQuery(locationKey);
+  const { data: hourlyWeatherData, isLoading: hourlyWeatherLoading } =
+    useGetHourlyWeatherQuery(locationKey);
+  const { data: forecastData, isLoading: forecastDataLoading } =
+    useGetForecastDataQuery(locationKey);
 
   const today = new Date();
   const options = { month: "short", day: "numeric" };
@@ -32,59 +29,67 @@ function HomePage() {
           <h2>
             TODAYS WEATHER <span className="date">{formattedDate}</span>
           </h2>
-          {forecastData ? (
+          {forecastDataLoading ? (
+            <p>Loading...</p>
+          ) : (
             <>
               <p>
-                {forecastData.Day.IconPhrase}; high of{" "}
-                {forecastData.Temperature.Maximum.Value}°
-                {forecastData.Temperature.Maximum.Unit}
+                {forecastData?.DailyForecasts[0]?.Day?.IconPhrase}; high of{" "}
+                {forecastData?.DailyForecasts[0]?.Temperature?.Maximum?.Value}°
+                {forecastData?.DailyForecasts[0]?.Temperature?.Maximum?.Unit}
               </p>
               <p>
-                Tonight: {forecastData.Night.IconPhrase}; low of{" "}
-                {forecastData.Temperature.Minimum.Value}°
-                {forecastData.Temperature.Minimum.Unit}
+                Tonight: {forecastData?.DailyForecasts[0]?.Night?.IconPhrase};
+                low of{" "}
+                {forecastData?.DailyForecasts[0]?.Temperature?.Minimum?.Value}°
+                {forecastData?.DailyForecasts[0]?.Temperature?.Minimum?.Unit}
               </p>
             </>
-          ) : (
-            <p>{error}</p>
           )}
         </div>
 
         <div className="card current-weather">
           <h2>Current Weather</h2>
-          {currentWeather ? (
+          {currentWeatherLoading ? (
+            <p>Loading...</p>
+          ) : (
             <>
               <p className="time">
                 {new Date(
-                  currentWeather.LocalObservationDateTime
+                  currentWeather[0]?.LocalObservationDateTime
                 ).toLocaleTimeString()}
               </p>
               <div className="weather-details">
                 <div className="temperature">
                   <img
                     src={`https://developer.accuweather.com/sites/default/files/${String(
-                      currentWeather.WeatherIcon
+                      currentWeather[0]?.WeatherIcon
                     ).padStart(2, "0")}-s.png`}
                     alt="Weather icon"
                     className="weather-icon"
                   />
-                  <span>{currentWeather.Temperature.Metric.Value}°C</span>
+                  <span>{currentWeather[0]?.Temperature?.Metric?.Value}°C</span>
                   <p>
-                    RealFeel® {currentWeather.Temperature.Metric.Value}
-                    °C
+                    RealFeel®{" "}
+                    {currentWeather[0]?.RealFeelTemperature?.Metric?.Value}°C
                   </p>
                 </div>
                 <div className="additional-details">
                   <p>
-                    RealFeel Shade™: {currentWeather.Temperature.Metric.Value}°C
+                    RealFeel Shade™:{" "}
+                    {currentWeather[0]?.RealFeelTemperatureShade?.Metric?.Value}
+                    °C
                   </p>
-                  <p>Wind: 5 Km/h</p>
-                  <p>Wind Gusts: 7 Km/h</p>
+                  <p>
+                    Wind: {currentWeather[0]?.Wind?.Speed?.Metric?.Value} Km/h
+                  </p>
+                  <p>
+                    Wind Gusts:{" "}
+                    {currentWeather[0]?.WindGust?.Speed?.Metric?.Value} Km/h
+                  </p>
                 </div>
               </div>
             </>
-          ) : (
-            <p>Loading...</p>
           )}
         </div>
 
@@ -113,7 +118,7 @@ function HomePage() {
 
         <div className="hourly-weather-card">
           <h2>Hourly Weather</h2>
-          {loading ? (
+          {hourlyWeatherLoading ? (
             <p>Loading hourly weather...</p>
           ) : (
             hourlyWeatherData.map((hour, index) => (
@@ -126,66 +131,11 @@ function HomePage() {
           )}
         </div>
       </div>
+
       <div className="right-column">
         <div className="card top-stories">
           <h2>Top Stories</h2>
-          <ul>
-            <li>
-              <p>
-                2 killed, 100 evacuated as flash flooding hit parts of
-                Connecticut
-              </p>
-            </li>
-            <li>
-              <p>
-                UPS driver veers off road, crashes into tree due to extreme heat
-              </p>
-            </li>
-            <li>
-              <p>
-                2 killed, 100 evacuated as flash flooding hit parts of
-                Connecticut
-              </p>
-            </li>
-            <li>
-              <p>
-                UPS driver veers off road, crashes into tree due to extreme heat
-              </p>
-            </li>
-            <li>
-              <p>
-                2 killed, 100 evacuated as flash flooding hit parts of
-                Connecticut
-              </p>
-            </li>
-            <li>
-              <p>
-                UPS driver veers off road, crashes into tree due to extreme heat
-              </p>
-            </li>
-            <li>
-              <p>
-                2 killed, 100 evacuated as flash flooding hit parts of
-                Connecticut
-              </p>
-            </li>
-            <li>
-              <p>
-                UPS driver veers off road, crashes into tree due to extreme heat
-              </p>
-            </li>
-            <li>
-              <p>
-                2 killed, 100 evacuated as flash flooding hit parts of
-                Connecticut
-              </p>
-            </li>
-            <li>
-              <p>
-                UPS driver veers off road, crashes into tree due to extreme heat
-              </p>
-            </li>
-          </ul>
+          {/* List of top stories */}
         </div>
       </div>
     </div>

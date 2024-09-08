@@ -1,30 +1,25 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchDailyWeather } from "../../redux/slices/dailyWeatherSlice";
+import { useGetDailyWeatherQuery } from "../../redux/slices/dailyWeatherSlice";
 import "./DailyWeather.css";
 
 const DailyWeatherCard = () => {
-  const dispatch = useDispatch();
-  const { dailyWeatherData, loading, error } = useSelector(
-    (state) => state.dailyWeather
-  );
+  const {
+    data: dailyWeatherData,
+    error,
+    isLoading,
+  } = useGetDailyWeatherQuery();
 
-  useEffect(() => {
-    dispatch(fetchDailyWeather());
-  }, [dispatch]);
-
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error.message}</div>;
   }
 
   return (
     <div className="daily-weather-container">
       <div className="left-column">
-        {dailyWeatherData.map((day, index) => (
+        {dailyWeatherData?.DailyForecasts.map((day, index) => (
           <div key={index} className="daily-weather-card">
             <div className="daily-weather-header">
               <div className="daily-weather-date">
@@ -43,7 +38,6 @@ const DailyWeatherCard = () => {
                   alt={day.Day.IconPhrase}
                 />
               </div>
-
               <div className="daily-weather-humidity">
                 <span>{day.Day.RainProbability}%</span>
               </div>
@@ -93,7 +87,6 @@ const DailyWeatherCard = () => {
                 Connecticut
               </p>
             </li>
-            {/* More stories */}
           </ul>
         </div>
       </div>

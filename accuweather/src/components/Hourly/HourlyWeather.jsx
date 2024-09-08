@@ -1,31 +1,25 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchHourlyWeather } from "../../redux/slices/hourlyWeatherSlice";
+import { useGetHourlyWeatherQuery } from "../../redux/slices/hourlyWeatherSlice";
 import "./HourlyWeather.css";
 
 const HourlyWeatherCard = () => {
-  const dispatch = useDispatch();
+  const {
+    data: hourlyWeatherData,
+    error,
+    isLoading,
+  } = useGetHourlyWeatherQuery();
 
-  const { hourlyWeatherData, loading, error } = useSelector(
-    (state) => state.hourlyWeather
-  );
-
-  useEffect(() => {
-    dispatch(fetchHourlyWeather());
-  }, [dispatch]);
-
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error.message}</div>;
   }
 
   return (
     <div className="hourly-weather-container">
       <div className="left-column">
-        {hourlyWeatherData.map((hour, index) => (
+        {hourlyWeatherData?.map((hour, index) => (
           <div key={index} className="hourly-weather-card">
             <div className="hourly-weather-header">
               <div className="hour-and-icon">
